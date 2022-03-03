@@ -37,6 +37,11 @@ public class ProductService {
         return productDao.updateProductById(id,newProduct);
     }
 
+    public Optional<List<Product>> getOptionsByID(UUID id) {
+        return productDao.getOptionsByID(id);
+    }
 
-
+    public Optional<Object> selectProductByName(String name) {
+        return Optional.ofNullable(productDao.selectProductByName(name));
+    }
 }

@@ -5,15 +5,18 @@ import java.util.UUID;
 import java.util.Optional;
 
 public interface ProductDao {
-    int insertProduct(UUID id,Product product);
+    int insertProduct(UUID id, String productId, Product product);
 
 
     default int insertProduct(Product product) {
         UUID id = UUID.randomUUID();
-        return insertProduct(id,product);
+        String productId = (UUID.randomUUID()).toString();
+        return insertProduct(id, productId, product);
     }
     List<Product> selectAllProduct();
     Optional<Product> selectProductById(UUID id);
+
     int deleteProductById(UUID id);
     int updateProductById(UUID id, Product product);
+    Optional<List<Product>> getOptionsByID(UUID id);
 }

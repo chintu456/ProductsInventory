@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import Xero.demo.model.Product;
-import Xero.demo.service.ProductService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -18,14 +16,14 @@ import javax.validation.constraints.NotNull;
 @RestController
 public class ProductController {
     private final ProductService productService;
+
     @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
     @PostMapping
-    public void addProduct(@Valid @NotNull @RequestBody Product product)
-    {
+    public void addProduct(@Valid @NotNull @RequestBody Product product) {
         productService.addProduct(product);
     }
 
@@ -35,19 +33,25 @@ public class ProductController {
     }
 
     @GetMapping(path = "{id}")
-    public Product getProductByID(@PathVariable("id")  UUID id) {
-        return productService.getProductById(id)
-                .orElse(null);
-    }
-    @DeleteMapping(path = "{id}")
-    public void deleteProductById(@PathVariable("id") UUID id){
-        productService.deleteProduct(id);
-    }
-    @PutMapping(path = "{id}")
-    public void updateProduct(@PathVariable("id") UUID id, @Valid @NotNull @RequestBody Product productToUpdate) {
-        productService.updateProduct(id,productToUpdate);
+    public Product getProductByID(@PathVariable("id") UUID id) {
+        return productService.getProductById(id).orElse(null);
     }
 
+    @DeleteMapping(path = "{id}")
+    public void deleteProductById(@PathVariable("id") UUID id) {
+        productService.deleteProduct(id);
     }
+
+    @PutMapping(path = "{id}")
+    public void updateProduct(@PathVariable("id") UUID id, @Valid @NotNull @RequestBody Product productToUpdate) {
+        productService.updateProduct(id, productToUpdate);
+    }
+
+    @GetMapping(path = "{id}/options")
+    public Optional<List<Product>> getOptionsByID(@PathVariable("id") UUID id) {
+        return productService.getOptionsByID(id);
+    }
+
+}
 
 

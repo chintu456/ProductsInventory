@@ -3,5 +3,6 @@ CREATE TABLE product (
     name VARCHAR(100) NOT NULL,
     description VARCHAR(100),
     price FLOAT,
-    deliveryPrice FLOAT
+    deliveryPrice FLOAT,
+    productid VARCHAR(100)
     );
